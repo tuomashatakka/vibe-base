@@ -1,0 +1,85 @@
+/* ————————————————————————————————————————————————
+   tokens.css — the whole theme lives here.
+   One accent, one neutral ramp, one scale.
+   Change these; touch nothing else.
+   ———————————————————————————————————————————————— */
+
+:root {
+  /* — color · neutral ramp — */
+  --ink:        oklch(18% 0.01 260);
+  --ink-soft:   oklch(38% 0.01 260);
+  --ink-faint:  oklch(58% 0.01 260);
+  --line:       oklch(88% 0.005 260);
+  --wash:       oklch(96% 0.003 260);
+  --paper:      oklch(99% 0.002 260);
+
+  /* — color · single accent (+ states derived from it) — */
+  --accent:        oklch(55% 0.16 255);
+  --accent-strong: oklch(45% 0.17 255);
+  --accent-wash:   oklch(94% 0.04 255);
+
+  /* — color · semantic — */
+  --danger:  oklch(55% 0.19 25);
+  --success: oklch(55% 0.15 150);
+
+  /* — type — */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2x: 2.5rem;
+
+  --leading-tight:  1.25;
+  --leading-normal: 1.6;
+
+  /* — rhythm — */
+  --space-xs: 0.375rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+
+  /* — shape · squared. always. — */
+  --radius: 0;
+  --border: 1px solid var(--line);
+
+  /* — motion — */
+  --snap: 120ms cubic-bezier(0.2, 0, 0, 1);
+
+  /* — layout — */
+  --measure:   68ch;
+  --page-max:  72rem;
+  --panel-w:   20rem;
+}
+
+[data-theme='dark'] {
+  --ink:        oklch(92% 0.005 260);
+  --ink-soft:   oklch(74% 0.008 260);
+  --ink-faint:  oklch(56% 0.01 260);
+  --line:       oklch(30% 0.01 260);
+  --wash:       oklch(21% 0.008 260);
+  --paper:      oklch(16% 0.008 260);
+
+  --accent:        oklch(72% 0.13 255);
+  --accent-strong: oklch(80% 0.12 255);
+  --accent-wash:   oklch(26% 0.05 255);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme='system'] {
+    --ink:        oklch(92% 0.005 260);
+    --ink-soft:   oklch(74% 0.008 260);
+    --ink-faint:  oklch(56% 0.01 260);
+    --line:       oklch(30% 0.01 260);
+    --wash:       oklch(21% 0.008 260);
+    --paper:      oklch(16% 0.008 260);
+
+    --accent:        oklch(72% 0.13 255);
+    --accent-strong: oklch(80% 0.12 255);
+    --accent-wash:   oklch(26% 0.05 255);
+  }
+}
