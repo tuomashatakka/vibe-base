@@ -1,0 +1,222 @@
+/* ————————————————————————————————————————————————
+   components.css — variants + structure.
+   Selectors mirror semantic markup:
+   `button.primary`, `article > header`, `aside[data-slot]`.
+   Never `.btn-primary`. Never `.p-4`.
+   ———————————————————————————————————————————————— */
+
+@layer components {
+
+  /* — button variants — */
+
+  button.primary {
+    background:   var(--accent);
+    border-color: var(--accent);
+    color:        var(--paper);
+  }
+
+  button.primary:hover:not(:disabled) {
+    background:   var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+
+  button.ghost {
+    background:   transparent;
+    border-color: transparent;
+  }
+
+  button.ghost:hover:not(:disabled) {
+    background:   var(--wash);
+    border-color: transparent;
+  }
+
+  button.danger {
+    color:        var(--danger);
+    border-color: var(--danger);
+    background:   transparent;
+  }
+
+  button.small {
+    padding:   0.15rem var(--space-sm);
+    font-size: var(--text-sm);
+  }
+
+  /* — page skeleton — */
+
+  body > header {
+    display:          flex;
+    align-items:      center;
+    justify-content:  space-between;
+    gap:              var(--space-md);
+    padding:          var(--space-sm) var(--space-md);
+    border-block-end: var(--border);
+    position:         sticky;
+    top:              0;
+    background:       var(--paper);
+    z-index:          10;
+  }
+
+  body > header > nav {
+    display: flex;
+    gap:     var(--space-md);
+  }
+
+  body > header > nav a {
+    color:           var(--ink-soft);
+    text-decoration: none;
+    font-size:       var(--text-sm);
+  }
+
+  body > header > nav a:hover,
+  body > header > nav a[aria-current='page'] {
+    color: var(--accent);
+  }
+
+  body > header > menu {
+    display:    flex;
+    gap:        var(--space-xs);
+    margin:     0;
+    padding:    0;
+    list-style: none;
+  }
+
+  main {
+    max-width:    var(--page-max);
+    margin-inline: auto;
+    padding:      var(--space-lg) var(--space-md);
+  }
+
+  body > footer {
+    border-block-start: var(--border);
+    padding:            var(--space-md);
+    color:              var(--ink-faint);
+    font-size:          var(--text-sm);
+    text-align:         center;
+  }
+
+  /* — parallel-route panel slot — */
+
+  aside[data-slot='panel'] {
+    position:          fixed;
+    inset-block:       0;
+    inset-inline-end:  0;
+    width:             min(var(--panel-w), 90vw);
+    background:        var(--paper);
+    border-inline-start: var(--border);
+    padding:           var(--space-md);
+    overflow-y:        auto;
+    z-index:           20;
+  }
+
+  /* — card (article-based) — */
+
+  article.card {
+    border:     var(--border);
+    background: var(--paper);
+  }
+
+  article.card > header {
+    padding:          var(--space-sm) var(--space-md);
+    border-block-end: var(--border);
+    background:       var(--wash);
+  }
+
+  article.card > header h3 { margin: 0; font-size: var(--text-md); }
+
+  article.card > div { padding: var(--space-md); }
+
+  article.card > footer {
+    padding:            var(--space-sm) var(--space-md);
+    border-block-start: var(--border);
+    display:            flex;
+    justify-content:    flex-end;
+    gap:                var(--space-sm);
+  }
+
+  /* — search field composite — */
+
+  form[role='search'] {
+    display: flex;
+    gap:     var(--space-xs);
+  }
+
+  form[role='search'] > input { flex: 1; }
+
+  /* — chat composite — */
+
+  section[data-component='chat'] {
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-sm);
+    border:         var(--border);
+    max-width:      var(--measure);
+  }
+
+  section[data-component='chat'] > ol {
+    list-style: none;
+    margin:     0;
+    padding:    var(--space-md);
+    display:    flex;
+    flex-direction: column;
+    gap:        var(--space-sm);
+    min-height: 12rem;
+    max-height: 24rem;
+    overflow-y: auto;
+  }
+
+  section[data-component='chat'] li {
+    max-width: 85%;
+    padding:   var(--space-xs) var(--space-sm);
+    border:    var(--border);
+    white-space: pre-wrap;
+  }
+
+  section[data-component='chat'] li[data-role='user'] {
+    align-self:   flex-end;
+    background:   var(--accent-wash);
+    border-color: color-mix(in oklch, var(--accent) 30%, var(--line));
+  }
+
+  section[data-component='chat'] li[data-role='assistant'] {
+    align-self: flex-start;
+    background: var(--wash);
+  }
+
+  section[data-component='chat'] > form {
+    display:            flex;
+    gap:                var(--space-xs);
+    padding:            var(--space-sm);
+    border-block-start: var(--border);
+  }
+
+  section[data-component='chat'] > form > input { flex: 1; }
+
+  /* — stacks & clusters (the only two layout helpers you get) — */
+
+  [data-layout='stack'] {
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-md);
+  }
+
+  [data-layout='cluster'] {
+    display:     flex;
+    flex-wrap:   wrap;
+    gap:         var(--space-sm);
+    align-items: center;
+  }
+
+  /* — swatches for the style guide — */
+
+  figure[data-token] {
+    margin:    0;
+    font-size: var(--text-xs);
+    font-family: var(--font-mono);
+  }
+
+  figure[data-token] > div {
+    inline-size: 4.5rem;
+    block-size:  3rem;
+    border:      var(--border);
+  }
+}
