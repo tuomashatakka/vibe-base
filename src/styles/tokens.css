@@ -2,84 +2,154 @@
    tokens.css — the whole theme lives here.
    One accent, one neutral ramp, one scale.
    Change these; touch nothing else.
+
+   Theme: Hummingbird Design — reconstructed from the studio's
+   November 2015 identity style guide. The brand is genuinely
+   monochrome (true greys only); color exists solely as
+   photographic overlay tints, never as a flat UI fill. So
+   --accent below intentionally resolves to ink, not a hue —
+   see the note next to it.
    ———————————————————————————————————————————————— */
 
+/* Montserrat has no local file in the source kit — Google Fonts,
+   same substitution the original style sheet uses. @import must
+   precede all other rules, so it comes before the local @font-face
+   declarations below. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+
+@font-face {
+  font-family: 'Novecento Sans Wide';
+  src: url('./fonts/Novecentosanswide-Light.otf') format('opentype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Novecento Sans Wide';
+  src: url('./fonts/Novecentosanswide-Book.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Novecento Sans Wide';
+  src: url('./fonts/Novecentosanswide-Medium.otf') format('opentype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Novecento Sans Wide';
+  src: url('./fonts/Novecentosanswide-DemiBold.otf') format('opentype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Novecento Sans Wide';
+  src: url('./fonts/Novecentosanswide-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sofia Pro';
+  src: url('./fonts/SofiaPro-ExtraLight.otf') format('opentype');
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Sofia Pro';
+  src: url('./fonts/SofiaPro-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Sofia Pro';
+  src: url('./fonts/SofiaPro-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
 :root {
-  /* — color · neutral ramp — */
-  --ink:        oklch(18% 0.01 260);
-  --ink-soft:   oklch(38% 0.01 260);
-  --ink-faint:  oklch(58% 0.01 260);
-  --line:       oklch(88% 0.005 260);
-  --wash:       oklch(96% 0.003 260);
-  --paper:      oklch(99% 0.002 260);
+  /* — color · neutral ramp (true greys, brightness 19% / 28%) — */
+  --ink:        #303030;
+  --ink-soft:   #474747;
+  --ink-faint:  #757575;
+  --line:       #DEDCD7;
+  --wash:       #F5F4F2;
+  --paper:      #FFFFFF;
 
-  /* — color · single accent (+ states derived from it) — */
-  --accent:        oklch(55% 0.16 255);
-  --accent-strong: oklch(45% 0.17 255);
-  --accent-wash:   oklch(94% 0.04 255);
+  /* — color · accent —
+     The brand has no flat-fill accent hue; "accent" is ink itself.
+     accent-wash steps one notch off wash so two neutral surfaces
+     (e.g. chat bubbles) stay tellable apart without introducing color. */
+  --accent:        var(--ink-soft);
+  --accent-strong: var(--ink);
+  --accent-wash:   #E8E7E4;
 
-  /* — color · semantic — */
-  --danger:  oklch(55% 0.19 25);
-  --success: oklch(55% 0.15 150);
+  /* — color · semantic —
+     Not part of the brand book (a monochrome identity has no error
+     state); wine and a desaturated moss keep the low-vibrancy feel. */
+  --danger:  #6B1E3A;
+  --success: #55694A;
 
   /* — type — */
-  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', monospace;
+  --font-sans:    'Sofia Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: 'Novecento Sans Wide', 'Futura PT', Futura, 'Helvetica Neue', sans-serif;
+  --font-sub:     'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono:    ui-monospace, 'JetBrains Mono', 'SF Mono', monospace;
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-md: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.75rem;
-  --text-2x: 2.5rem;
+  --text-xs: 0.6875rem; /* 11px — caption, eyebrow */
+  --text-sm: 0.8125rem; /* 13px — small print */
+  --text-md: 1rem;      /* 16px — body */
+  --text-lg: 1.375rem;  /* 22px — h4 */
+  --text-xl: 1.875rem;  /* 30px — h3 */
+  --text-2x: 2.25rem;   /* 36px — h2 */
+  --text-3x: 3.375rem;  /* 54px — h1 */
 
-  --leading-tight:  1.25;
-  --leading-normal: 1.6;
+  --leading-tight:  1.2;
+  --leading-normal: 1.7;
 
-  /* — rhythm — */
-  --space-xs: 0.375rem;
-  --space-sm: 0.75rem;
-  --space-md: 1.25rem;
-  --space-lg: 2rem;
-  --space-xl: 3.5rem;
+  /* — rhythm · 4/8 grid — */
+  --space-xs: 0.5rem;  /* 8px */
+  --space-sm: 0.75rem; /* 12px */
+  --space-md: 1.5rem;  /* 24px */
+  --space-lg: 3rem;    /* 48px */
+  --space-xl: 6rem;    /* 96px */
 
   /* — shape · squared. always. — */
   --radius: 0;
-  --border: 1px solid var(--line);
+  --border:        1px solid var(--line);
+  --border-strong: 1px solid var(--ink);
 
   /* — motion — */
-  --snap: 120ms cubic-bezier(0.2, 0, 0, 1);
+  --snap: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* — layout — */
   --measure:   68ch;
-  --page-max:  72rem;
+  --page-max:  80rem;
   --panel-w:   20rem;
 }
 
 [data-theme='dark'] {
-  --ink:        oklch(92% 0.005 260);
-  --ink-soft:   oklch(74% 0.008 260);
-  --ink-faint:  oklch(56% 0.01 260);
-  --line:       oklch(30% 0.01 260);
-  --wash:       oklch(21% 0.008 260);
-  --paper:      oklch(16% 0.008 260);
+  --ink:        #F5F4F2;
+  --ink-soft:   #CFCFCF;
+  --ink-faint:  #9E9E9E;
+  --line:       #474747;
+  --wash:       #262626;
+  --paper:      #1A1A1A;
 
-  --accent:        oklch(72% 0.13 255);
-  --accent-strong: oklch(80% 0.12 255);
-  --accent-wash:   oklch(26% 0.05 255);
+  --accent:        var(--ink-soft);
+  --accent-strong: var(--ink);
+  --accent-wash:   #333333;
+
+  --danger:  #8A2E4E;
+  --success: #6F8264;
 }
 
 @media (prefers-color-scheme: dark) {
   [data-theme='system'] {
-    --ink:        oklch(92% 0.005 260);
-    --ink-soft:   oklch(74% 0.008 260);
-    --ink-faint:  oklch(56% 0.01 260);
-    --line:       oklch(30% 0.01 260);
-    --wash:       oklch(21% 0.008 260);
-    --paper:      oklch(16% 0.008 260);
+    --ink:        #F5F4F2;
+    --ink-soft:   #CFCFCF;
+    --ink-faint:  #9E9E9E;
+    --line:       #474747;
+    --wash:       #262626;
+    --paper:      #1A1A1A;
 
-    --accent:        oklch(72% 0.13 255);
-    --accent-strong: oklch(80% 0.12 255);
-    --accent-wash:   oklch(26% 0.05 255);
+    --accent:        var(--ink-soft);
+    --accent-strong: var(--ink);
+    --accent-wash:   #333333;
+
+    --danger:  #8A2E4E;
+    --success: #6F8264;
   }
 }

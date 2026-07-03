@@ -17,9 +17,11 @@
   body {
     margin:      0;
     font-family: var(--font-sans);
+    font-weight: 300;
     font-size:   var(--text-md);
     line-height: var(--leading-normal);
-    color:       var(--ink);
+    letter-spacing: 0.02em;
+    color:       var(--ink-soft);
     background:  var(--paper);
     -webkit-font-smoothing: antialiased;
   }
@@ -37,22 +39,51 @@
   /* — typography — */
 
   h1, h2, h3, h4, h5, h6 {
-    line-height:   var(--leading-tight);
-    margin-block:  0 var(--space-sm);
-    font-weight:   600;
-    letter-spacing: -0.01em;
-    text-wrap:     balance;
+    line-height:  var(--leading-tight);
+    margin-block: 0 var(--space-sm);
+    text-wrap:    balance;
   }
 
-  h1 { font-size: var(--text-2x); }
-  h2 { font-size: var(--text-xl); }
-  h3 { font-size: var(--text-lg); }
-  h4, h5 { font-size: var(--text-md); }
+  h1 {
+    font-family:    var(--font-display);
+    font-weight:    500;
+    font-size:      var(--text-3x);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color:          var(--ink-soft);
+  }
+
+  h2 {
+    font-family:    var(--font-display);
+    font-weight:    600;
+    font-size:      var(--text-2x);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color:          var(--ink);
+  }
+
+  h3 {
+    font-family:    var(--font-sub);
+    font-weight:    300;
+    font-size:      var(--text-xl);
+    letter-spacing: -0.04em;
+    color:          var(--ink);
+  }
+
+  h4, h5 {
+    font-family:    var(--font-sub);
+    font-weight:    400;
+    font-size:      var(--text-lg);
+    letter-spacing: -0.04em;
+    color:          var(--ink-soft);
+  }
 
   h6 {
+    font-family:    var(--font-display);
+    font-weight:    500;
     font-size:      var(--text-xs);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     color:          var(--ink-faint);
   }
 
@@ -100,20 +131,34 @@
   /* — interactive elements — */
 
   button {
-    font:       inherit;
-    color:      var(--ink);
-    background: var(--wash);
-    border:     var(--border);
-    padding:    var(--space-xs) var(--space-md);
-    cursor:     pointer;
+    font-family:    var(--font-display);
+    font-weight:    500;
+    font-size:      var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color:          var(--ink-soft);
+    background:     transparent;
+    border:         var(--border-strong);
+    padding:        var(--space-sm) var(--space-md);
+    cursor:         pointer;
     transition: background var(--snap), border-color var(--snap), color var(--snap);
   }
 
-  button:hover:not(:disabled) { border-color: var(--ink-faint); }
+  button:hover:not(:disabled) {
+    background:   var(--ink-soft);
+    border-color: var(--ink-soft);
+    color:        var(--paper);
+  }
+
+  button:active:not(:disabled) {
+    background:   var(--ink);
+    border-color: var(--ink);
+  }
 
   button:disabled {
-    color:  var(--ink-faint);
-    cursor: not-allowed;
+    color:        var(--ink-faint);
+    border-color: var(--line);
+    cursor:       not-allowed;
   }
 
   input, textarea, select {
@@ -145,9 +190,10 @@
   }
 
   legend {
+    font-family:    var(--font-display);
     font-size:      var(--text-xs);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     color:          var(--ink-faint);
     padding-inline: var(--space-xs);
   }
@@ -226,9 +272,10 @@
   }
 
   th {
+    font-family:    var(--font-display);
     font-size:      var(--text-xs);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.14em;
     color:          var(--ink-faint);
   }
 

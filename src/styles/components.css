@@ -28,12 +28,19 @@
   button.ghost:hover:not(:disabled) {
     background:   var(--wash);
     border-color: transparent;
+    color:        var(--ink-soft);
   }
 
   button.danger {
     color:        var(--danger);
     border-color: var(--danger);
     background:   transparent;
+  }
+
+  button.danger:hover:not(:disabled) {
+    background:   var(--danger);
+    border-color: var(--danger);
+    color:        var(--paper);
   }
 
   button.small {
@@ -61,15 +68,30 @@
     gap:     var(--space-md);
   }
 
+  body > header strong {
+    font-family:    var(--font-display);
+    font-weight:    700;
+    font-size:      var(--text-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color:          var(--ink);
+  }
+
   body > header > nav a {
+    font-family:     var(--font-display);
+    font-weight:     500;
+    font-size:       var(--text-xs);
+    letter-spacing:  0.14em;
+    text-transform:  uppercase;
     color:           var(--ink-soft);
     text-decoration: none;
-    font-size:       var(--text-sm);
+    transition:      opacity var(--snap);
   }
 
   body > header > nav a:hover,
   body > header > nav a[aria-current='page'] {
-    color: var(--accent);
+    color:   var(--ink);
+    opacity: 0.65;
   }
 
   body > header > menu {
@@ -90,8 +112,15 @@
     border-block-start: var(--border);
     padding:            var(--space-md);
     color:              var(--ink-faint);
-    font-size:          var(--text-sm);
     text-align:         center;
+  }
+
+  body > footer small {
+    font-family:    var(--font-display);
+    font-size:      var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color:          var(--ink-faint);
   }
 
   /* — parallel-route panel slot — */
