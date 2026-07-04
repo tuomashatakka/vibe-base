@@ -440,7 +440,7 @@
     align-items: center;
   }
 
-  /* — swatches for the style guide — */
+  /* — swatches for the design system page — */
 
   figure[data-token] {
     margin:    0;
@@ -453,4 +453,172 @@
     block-size:  3rem;
     border:      var(--border);
   }
+
+  /* a ramp: swatches fuse into one continuous strip */
+
+  [data-swatches] {
+    display:               grid;
+    grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+    gap:                   var(--space-sm) 0;
+  }
+
+  [data-swatches] figure[data-token] > div {
+    inline-size:  100%;
+    border-inline-end: none;
+  }
+
+  [data-swatches] figure[data-token]:last-child > div {
+    border-inline-end: var(--border);
+  }
+
+  [data-swatches] figcaption {
+    padding-inline-end: var(--space-xs);
+    overflow:           hidden;
+    text-overflow:      ellipsis;
+    white-space:        nowrap;
+  }
+
+  /* — carousel: native scroll-snap, buttons only assist — */
+
+  section[data-component='carousel'] {
+    border: var(--border);
+  }
+
+  section[data-component='carousel'] > ul {
+    display:                   flex;
+    margin:                    0;
+    padding:                   0;
+    list-style:                none;
+    overflow-x:                auto;
+    scroll-snap-type:          x mandatory;
+    scrollbar-width:           none;
+    overscroll-behavior-x:     contain;
+  }
+
+  section[data-component='carousel'] > ul::-webkit-scrollbar { display: none; }
+
+  section[data-component='carousel'] > ul > li {
+    flex:              0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop:  always;
+    display:           flex;
+    flex-direction:    column;
+    justify-content:   center;
+    gap:               var(--space-sm);
+    min-block-size:    24rem;
+    padding:           var(--space-xl) var(--space-lg);
+    background:        var(--wash);
+  }
+
+  section[data-component='carousel'] > ul > li:nth-child(even) {
+    background: var(--paper);
+  }
+
+  section[data-component='carousel'] > footer {
+    display:            flex;
+    align-items:        center;
+    justify-content:    space-between;
+    gap:                var(--space-sm);
+    padding:            var(--space-xs) var(--space-sm);
+    border-block-start: var(--border);
+  }
+
+  section[data-component='carousel'] > footer > small {
+    font-family:    var(--font-display);
+    font-size:      var(--text-xs);
+    letter-spacing: 0.2em;
+    color:          var(--ink-faint);
+  }
+
+  /* — portfolio hero — */
+
+  section[data-hero] {
+    padding-block: var(--space-xl) var(--space-lg);
+    text-align:    center;
+  }
+
+  section[data-hero] > h1 {
+    font-size:     var(--text-4x);
+    font-weight:   300;
+    margin-inline: auto;
+  }
+
+  section[data-hero] > p {
+    margin-inline: auto;
+    color:         var(--ink-faint);
+  }
+
+  /* slides inherit the hero's centered, typographic manner */
+
+  section[data-component='carousel'] li > h2 { margin-block-end: 0; }
+  section[data-component='carousel'] li > p  { max-width: var(--measure); }
+
+  /* — theme customizer — */
+
+  form[data-component='theme-customizer'] {
+    display:               grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap:                   var(--space-md);
+  }
+
+  form[data-component='theme-customizer'] > fieldset {
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-xs);
+  }
+
+  form[data-component='theme-customizer'] [data-swatch] {
+    block-size:       3rem;
+    border:           var(--border);
+    margin-block-end: var(--space-xs);
+  }
+
+  form[data-component='theme-customizer'] label {
+    display:               grid;
+    grid-template-columns: 5.5rem 1fr 3.5rem;
+    align-items:           center;
+    gap:                   var(--space-xs);
+    margin-block-end:      0;
+  }
+
+  form[data-component='theme-customizer'] output {
+    font-family: var(--font-mono);
+    font-size:   var(--text-xs);
+    text-align:  end;
+    color:       var(--ink-faint);
+  }
+
+  form[data-component='theme-customizer'] > footer {
+    grid-column: 1 / -1;
+    display:     flex;
+    gap:         var(--space-sm);
+  }
+
+  /* — spacing scale specimen — */
+
+  [data-space-scale] {
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-xs);
+  }
+
+  [data-space-scale] figure {
+    display:     flex;
+    align-items: center;
+    gap:         var(--space-sm);
+    margin:      0;
+    font-family: var(--font-mono);
+    font-size:   var(--text-xs);
+  }
+
+  [data-space-scale] figure > div {
+    block-size: var(--space-xs);
+    background: var(--ink);
+  }
+
+  [data-space-scale] figure[data-space='xs'] > div { inline-size: var(--space-xs); }
+  [data-space-scale] figure[data-space='sm'] > div { inline-size: var(--space-sm); }
+  [data-space-scale] figure[data-space='md'] > div { inline-size: var(--space-md); }
+  [data-space-scale] figure[data-space='lg'] > div { inline-size: var(--space-lg); }
+  [data-space-scale] figure[data-space='xl'] > div { inline-size: var(--space-xl); }
 }

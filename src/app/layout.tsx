@@ -6,8 +6,8 @@ import './globals.css'
 
 
 export const metadata: Metadata = {
-  title:       'vibe-scaffold',
-  description: 'Minimal semantic Next.js boilerplate — Bun, TypeScript, AI SDK, parallel routes.',
+  title:       'Hummingbird Design System',
+  description: 'A monochrome design system portfolio — semantic HTML, native elements, customizable oklch tokens, zero utility classes.',
 }
 
 interface RootLayoutProps {
@@ -16,7 +16,7 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout ({ children, panel }: RootLayoutProps) {
-  return <html suppressHydrationWarning lang='en' data-theme='system'>
+  return <html suppressHydrationWarning lang='en' data-theme='light'>
     <body>
       <AppStateProvider>
         <Header />

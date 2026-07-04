@@ -11,18 +11,18 @@ export const Header: FC = () => {
   const dispatch  = useDispatch()
 
   const cycleTheme = () => {
-    const next = theme === 'system' ? 'dark' : theme === 'dark' ? 'light' : 'system'
+    const next = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light'
     dispatch(setTheme(next))
   }
 
   return <header>
     <Link href='/'>
-      <strong>vibe-scaffold</strong>
+      <strong>Hummingbird</strong>
     </Link>
 
     <nav aria-label='Main'>
       <Link href='/'>Home</Link>
-      <Link href='/style-guide'>Style guide</Link>
+      <Link href='/design-system'>Design system</Link>
     </nav>
 
     <menu>

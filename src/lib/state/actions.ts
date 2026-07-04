@@ -1,8 +1,14 @@
-import type { AppAction, Notice, Theme } from './types'
+import type { AppAction, BrandColor, ColorChannels, Notice, Theme } from './types'
 
 
 export const setTheme = (theme: Theme): AppAction =>
   ({ type: 'theme/set', theme })
+
+export const setBrandColor = (color: BrandColor, channels: ColorChannels): AppAction =>
+  ({ type: 'palette/set', color, channels })
+
+export const resetPalette = (): AppAction =>
+  ({ type: 'palette/reset' })
 
 export const togglePanel = (): AppAction =>
   ({ type: 'panel/toggle' })

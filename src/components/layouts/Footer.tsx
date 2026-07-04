@@ -4,7 +4,7 @@ import type { FC } from 'react'
 export const Footer: FC = () =>
   <footer>
     <small>
-      vibe-scaffold — semantic markup, native elements, one accent, zero utility classes.
+      Hummingbird — a monochrome design system. Semantic markup, native elements, zero utility classes.
     </small>
   </footer>
 

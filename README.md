@@ -12,8 +12,11 @@ cp .env.example .env.local     # add ANTHROPIC_API_KEY for the chat route
 bun dev
 ```
 
-Open `http://localhost:3000` — the home page demos everything that's wired.
-`/style-guide` renders the full token + component surface.
+Open `http://localhost:3000` — the home page is the Hummingbird design system
+portfolio (scroll-snap slider included). `/design-system` documents the whole
+system: every token ramp as swatches, live palette customization via oklch
+sliders, and every component with working examples. The written spec lives in
+`docs/hummingbird-design-system.md`.
 
 ## What's inside
 
@@ -21,12 +24,12 @@ Open `http://localhost:3000` — the home page demos everything that's wired.
 src/
 ├── app/
 │   ├── layout.tsx            # root layout — receives the @panel slot
-│   ├── page.tsx              # demo home
+│   ├── page.tsx              # portfolio landing (carousel + principles)
 │   ├── @panel/               # ★ parallel route slot (state-inspector aside)
 │   │   ├── default.tsx
 │   │   └── page.tsx
 │   ├── api/chat/route.ts     # ★ AI SDK streaming endpoint (Claude)
-│   ├── style-guide/page.tsx  # living style guide
+│   ├── design-system/        # living design system documentation
 │   └── globals.css
 ├── components/
 │   ├── primitives/           # single-element components (Button, Input, Dialog…)
@@ -43,13 +46,15 @@ src/
 
 ## The design system, in three sentences
 
-Every theme decision is a custom property in `tokens.css` — one neutral ramp, one
-accent, one scale, squared corners. `base.css` styles semantic elements directly so
-plain HTML already looks right. `components.css` adds variants through selectors that
-mirror the markup (`button.primary`, `article.card > header`), never utility classes.
+Every theme decision is a custom property in `tokens.css` — one neutral ramp, brand
+colors as customizable oklch channel triplets with nine-step variant ramps, one
+scale, squared corners. `base.css` styles semantic elements directly so plain HTML
+already looks right. `components.css` adds variants through selectors that mirror
+the markup (`button.primary`, `article.card > header`), never utility classes.
 
-Dark mode is `data-theme` on `<html>` (`light` / `dark` / `system`), driven by the
-global reducer.
+Theming is `data-theme` on `<html>` (`light` — the default — / `dark` / `system`),
+driven by the global reducer; the same reducer carries live palette overrides that
+land as inline custom properties.
 
 ## Global state
 

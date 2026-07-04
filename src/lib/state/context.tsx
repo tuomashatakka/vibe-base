@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import type { Dispatch, ReactNode } from 'react'
 import { reducer } from './reducer'
-import { initialState } from './types'
+import { BRAND_COLORS, initialState } from './types'
 import type { AppAction, AppState } from './types'
 
 
@@ -21,6 +21,27 @@ export const AppStateProvider = ({ children }: AppStateProviderProps) => {
   useEffect(() => {
     document.documentElement.dataset.theme = state.theme
   }, [ state.theme ])
+
+  // Palette overrides land as inline custom properties on <html>,
+  // where they win over both light and dark token defaults.
+  useEffect(() => {
+    const root = document.documentElement
+
+    for (const color of BRAND_COLORS) {
+      const channels = state.palette[color]
+
+      if (channels) {
+        root.style.setProperty(`--${color}-l`, `${channels.lightness}%`)
+        root.style.setProperty(`--${color}-c`, `${channels.chroma}`)
+        root.style.setProperty(`--${color}-h`, `${channels.hue}`)
+      }
+      else {
+        root.style.removeProperty(`--${color}-l`)
+        root.style.removeProperty(`--${color}-c`)
+        root.style.removeProperty(`--${color}-h`)
+      }
+    }
+  }, [ state.palette ])
 
   return <StateContext.Provider value={ state }>
     <DispatchContext.Provider value={ dispatch }>
