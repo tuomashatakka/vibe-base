@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import type { FC } from 'react'
-import { Button } from '@/components/primitives'
+import { Button, Mark } from '@/components/primitives'
 import { setTheme, togglePanel, useAppState, useDispatch } from '@/lib/state'
 
 
@@ -17,6 +17,7 @@ export const Header: FC = () => {
 
   return <header>
     <Link href='/'>
+      <Mark />
       <strong>Hummingbird</strong>
     </Link>
 

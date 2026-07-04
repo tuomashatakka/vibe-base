@@ -2,12 +2,12 @@
 
 import { useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import { Button } from '@/components/primitives'
 
 
 interface Slide {
   id:      string
   content: ReactNode
+  image?:  { src: string } // full-bleed photography behind the content
 }
 
 interface CarouselProps {
@@ -15,10 +15,18 @@ interface CarouselProps {
   label:  string // names the carousel for assistive tech
 }
 
+const Chevron: FC<{ direction: 'prev' | 'next' }> = ({ direction }) =>
+  <svg aria-hidden='true' viewBox='0 0 24 24'>
+    <polyline points={ direction === 'prev' ? '15 18 9 12 15 6' : '9 18 15 12 9 6' } />
+  </svg>
+
+Chevron.displayName = 'Chevron'
+
 /**
  * Scroll-snap slider: the track is a plain scrollable list, so swipe,
- * trackpad, and keyboard scrolling all work natively — the buttons
- * only assist.
+ * trackpad, and keyboard scrolling all work natively — the buttons and
+ * dots only assist. Slides with an image render it full-bleed under a
+ * diagonal scrim, in the identity's photo treatment.
  */
 export const Carousel: FC<CarouselProps> = ({ slides, label }) => {
   const track                   = useRef<HTMLUListElement>(null)
@@ -51,32 +59,40 @@ export const Carousel: FC<CarouselProps> = ({ slides, label }) => {
           key={ slide.id }
           aria-roledescription='slide'
           aria-label={ `${index + 1} of ${slides.length}` }>
-          {slide.content}
+          {slide.image ? <img alt='' src={ slide.image.src } /> : null}
+          <div>{slide.content}</div>
         </li>)}
     </ul>
 
     <footer>
-      <Button
-        variant='ghost'
-        size='small'
-        disabled={ current === 0 }
-        onClick={ () => goTo(current - 1) }>
-        ← Prev
-      </Button>
+      <ol>
+        {slides.map((slide, index) =>
+          <li key={ slide.id }>
+            <button
+              aria-label={ `Go to slide ${index + 1}` }
+              aria-current={ index === current }
+              type='button'
+              onClick={ () => goTo(index) } />
+          </li>)}
+      </ol>
 
-      <small aria-hidden='true'>
-        {String(current + 1).padStart(2, '0')}
-        {' / '}
-        {String(slides.length).padStart(2, '0')}
-      </small>
+      <span data-layout='cluster'>
+        <button
+          aria-label='Previous slide'
+          type='button'
+          disabled={ current === 0 }
+          onClick={ () => goTo(current - 1) }>
+          <Chevron direction='prev' />
+        </button>
 
-      <Button
-        variant='ghost'
-        size='small'
-        disabled={ current === slides.length - 1 }
-        onClick={ () => goTo(current + 1) }>
-        Next →
-      </Button>
+        <button
+          aria-label='Next slide'
+          type='button'
+          disabled={ current === slides.length - 1 }
+          onClick={ () => goTo(current + 1) }>
+          <Chevron direction='next' />
+        </button>
+      </span>
     </footer>
   </section>
 }

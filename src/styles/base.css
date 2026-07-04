@@ -115,7 +115,6 @@
 
   pre {
     background: var(--wash);
-    border:     var(--border);
     padding:    var(--space-sm);
     overflow-x: auto;
   }
@@ -125,14 +124,14 @@
   blockquote {
     margin:              0 0 var(--space-sm);
     padding-inline-start: var(--space-md);
-    border-inline-start: 0.1875rem solid var(--line);
+    border-inline-start: var(--border-hair);
     color:               var(--ink-faint);
     max-width:           var(--measure);
   }
 
   hr {
     border:       none;
-    border-top:   var(--border);
+    border-top:   var(--border-hair);
     margin-block: var(--space-lg);
   }
 
@@ -140,46 +139,48 @@
 
   button {
     font-family:    var(--font-display);
-    font-weight:    500;
+    font-weight:    450;
     font-size:      var(--text-xs);
-    letter-spacing: 0.14em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color:          var(--ink-soft);
     background:     transparent;
-    border:         var(--border-strong);
+    border:         var(--border-hair);
     padding:        var(--space-sm) var(--space-md);
     cursor:         pointer;
     transition: background var(--snap), border-color var(--snap), color var(--snap);
   }
 
   button:hover:not(:disabled) {
-    background:   var(--ink-soft);
+    background:   color-mix(in oklch, var(--ink) 5%, transparent);
     border-color: var(--ink-soft);
-    color:        var(--paper);
+    color:        var(--ink);
   }
 
   button:active:not(:disabled) {
-    background:   var(--ink);
+    background:   var(--accent-wash);
     border-color: var(--ink);
   }
 
   button:disabled {
     color:        var(--ink-faint);
-    border-color: var(--line);
+    border-color: transparent;
+    background:   var(--wash);
     cursor:       not-allowed;
   }
 
   input, textarea, select {
     font:       inherit;
     color:      var(--ink);
-    background: var(--paper);
-    border:     var(--border);
+    background: var(--wash);
+    border:     1px solid transparent;
     padding:    var(--space-xs) var(--space-sm);
-    transition: border-color var(--snap);
+    transition: border-color var(--snap), background var(--snap);
   }
 
   input:focus, textarea:focus, select:focus {
     outline:      none;
+    background:   var(--paper);
     border-color: var(--accent);
   }
 
@@ -265,8 +266,9 @@
   }
 
   fieldset {
-    border:  var(--border);
-    padding: var(--space-md);
+    border:              none;
+    border-inline-start: var(--border-hair);
+    padding:             var(--space-xs) var(--space-md);
   }
 
   legend {
@@ -281,20 +283,19 @@
   /* — native disclosure — */
 
   details {
-    border: var(--border);
+    background: var(--wash);
   }
 
   summary {
     padding:     var(--space-xs) var(--space-sm);
     cursor:      pointer;
     user-select: none;
-    background:  var(--wash);
     transition:  background var(--snap);
   }
 
   summary:hover { background: var(--accent-wash); }
 
-  details[open] > summary { border-block-end: var(--border); }
+  details[open] > summary { border-block-end: var(--border-hair); }
 
   details > :not(summary) {
     padding: var(--space-sm);
@@ -305,7 +306,8 @@
   dialog {
     color:      var(--ink);
     background: var(--paper);
-    border:     var(--border);
+    border:     none;
+    box-shadow: 0 0.125rem 0.875rem var(--hairline);
     padding:    0;
     max-width:  min(90vw, 32rem);
     margin:     auto;
@@ -322,7 +324,7 @@
     justify-content:  space-between;
     gap:              var(--space-sm);
     padding:          var(--space-sm) var(--space-md);
-    border-block-end: var(--border);
+    border-block-end: var(--border-hair);
   }
 
   dialog > header > button { border: none; background: none; padding: var(--space-xs); }
@@ -334,7 +336,7 @@
     justify-content:    flex-end;
     gap:                var(--space-sm);
     padding:            var(--space-sm) var(--space-md);
-    border-block-start: var(--border);
+    border-block-start: var(--border-hair);
   }
 
   /* — tables — */
@@ -348,7 +350,7 @@
   th, td {
     text-align:       start;
     padding:          var(--space-xs) var(--space-sm);
-    border-block-end: var(--border);
+    border-block-end: var(--border-hair);
   }
 
   th {
@@ -364,8 +366,8 @@
   progress {
     appearance:  none;
     inline-size: 100%;
-    block-size:  0.5rem;
-    border:      var(--border);
+    block-size:  0.25rem;
+    border:      none;
     background:  var(--wash);
     color:       var(--ink); /* Firefox fill colour */
     overflow:    hidden;

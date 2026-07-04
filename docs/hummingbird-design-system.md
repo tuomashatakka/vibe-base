@@ -10,8 +10,10 @@ component rendered with live examples — is the `/design-system` page.
 1. **Monochrome, by design.** The brand is true greys only. Color never
    arrives as a flat UI fill; it exists as photographic overlay tint — or,
    in this implementation, as user customization of the oklch channels.
-2. **Squared. Always.** `--radius` is a token set to `0`. Hairline borders
-   and whitespace separate surfaces; nothing floats on a shadow.
+2. **Squared. Always. Borderless by default.** `--radius` is a token set to
+   `0`. Surfaces separate through whitespace and washes rather than boxes;
+   when a line is unavoidable it is a hairline (`--hairline`, ~14% ink),
+   not a border.
 3. **The markup is the API.** Selectors mirror semantic markup
    (`button.primary`, `article.card > header`, `aside[data-slot='panel']`).
    No utility classes, no Tailwind, no Radix, no inline styles.
@@ -35,6 +37,12 @@ component rendered with live examples — is the `/design-system` page.
 
 The dark theme flips the ramp (paper `22%` → ink `97%`); `data-theme` on
 `<html>` selects `light` (default), `dark`, or `system`.
+
+Photography carries the only real color: the overlay tints from the
+identity kit ship as tokens (`--tint-blue`, `--tint-dark`, `--tint-clear`,
+`--tint-magenta`, `--tint-wine`, `--tint-mist`), and photo slides sit under
+a diagonal `--scrim` gradient with near-white type (`--on-photo`,
+`--on-photo-soft`, `--on-photo-faint`) regardless of theme.
 
 ### Customizable brand colors
 
@@ -77,12 +85,13 @@ on the `/design-system` page.
 
 ## Typography
 
-| Face                    | Role                                   | Weights       |
-| ----------------------- | -------------------------------------- | ------------- |
-| Novecento Sans Wide     | display, labels — uppercase, tracked   | 300–700       |
-| Sofia Pro               | body — light                           | 200, 400, 700 |
-| Montserrat (Google)     | subheadings                            | 300, 400      |
-| ui-monospace stack      | code                                   | —             |
+| Face                    | Role                                   | Weights            |
+| ----------------------- | -------------------------------------- | ------------------ |
+| Novecento Sans Wide     | display, labels — uppercase, tracked   | 300, 400, 450–700  |
+| Sofia Pro               | body — light                           | 200, 300, 400, 700 |
+| Montserrat (Google)     | subheadings                            | 300, 400           |
+| TeX Gyre Adventor       | the wordmark face (`--font-mark`)      | 400, 700           |
+| ui-monospace stack      | code                                   | —                  |
 
 Scale (`--text-*`): `xs` 11px eyebrow · `sm` 13px small print · `md` 16px
 body · `lg` 22px h4 · `xl` 30px h3 · `2x` 36px h2 · `3x` 54px h1 ·
@@ -97,8 +106,10 @@ Rules: display type is never bolded for emphasis; body copy caps at
 - **Widths** — `--measure` 68ch · `--page-max` 80rem · `--panel-w` 20rem.
 - **Shape** — `--radius: 0`; borders are `--border` (hairline `--line`) and
   `--border-strong` (`--ink`).
-- **Motion** — one easing token `--snap` (200ms cubic-bezier), collapsed
-  entirely under `prefers-reduced-motion`.
+- **Motion** — `--snap` (200ms cubic-bezier) for hovers and toggles, plus
+  the signature reveal curve `--immersive` (cubic-bezier(0.16, 1, 0.3, 1))
+  for slide dots, nav underlines, and section reveals. All collapsed under
+  `prefers-reduced-motion`.
 
 ## Component inventory
 
@@ -115,6 +126,7 @@ Rules: display type is never bolded for emphasis; body copy caps at
 | Switch     | `input[role=switch]`             | label, checked, onChange                 |
 | Slider     | `input[type=range]`              | label, min, max, step, value, onChange   |
 | Heading    | `h1`–`h6`                        | level, id                                |
+| Mark       | `svg` (brand mark, currentColor) | label                                    |
 | Badge      | `span[data-badge]`               | variant                                  |
 | Progress   | `progress`                       | label, value, max                        |
 | Disclosure | `details/summary`                | summary, open, name                      |
@@ -130,7 +142,8 @@ Rules: display type is never bolded for emphasis; body copy caps at
 | Tabs            | `[role=tablist]` + panels                  | tabs, label            |
 | Breadcrumb      | `nav > ol`                                 | items                  |
 | SearchField     | `form[role=search]`                        | placeholder, onSearch  |
-| Carousel        | `section[aria-roledescription=carousel]`   | slides, label          |
+| Carousel        | `section[aria-roledescription=carousel]`   | slides (image, content), label |
+| Meta            | `dl[data-meta]`                            | items                  |
 | Swatches        | `div[data-swatches]`                       | tokens, label          |
 | ThemeCustomizer | `form[data-component=theme-customizer]`    | —                      |
 | Chat            | `section[data-component=chat]`             | —                      |
@@ -142,6 +155,17 @@ Rules: display type is never bolded for emphasis; body copy caps at
 | Header    | `body > header` (sticky)   | —               |
 | Footer    | `body > footer`            | —               |
 | Panel     | `aside[data-slot='panel']` | label           |
+
+## Portfolio surfaces
+
+- **Screens** — `[data-layout='screens']` turns a page into full-height
+  scroll-snap sections (the front page); sections drift in with a
+  blur/translate reveal via CSS scroll-driven animations where supported.
+- **Carousel** — a native scroll-snap slider. Slides with an `image` render
+  it full-bleed under the diagonal scrim with near-white type; controls are
+  hairline chevron squares and line-style dots that stretch when current.
+- **Assets** — the identity kit's mountain photography and hummingbird
+  mark/logo live in `src/assets/`.
 
 ## Theming & state
 

@@ -29,6 +29,11 @@
 }
 @font-face {
   font-family: 'Novecento Sans Wide';
+  src: url('./fonts/Novecentosanswide-Normal.otf') format('opentype');
+  font-weight: 450; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Novecento Sans Wide';
   src: url('./fonts/Novecentosanswide-Medium.otf') format('opentype');
   font-weight: 500; font-style: normal; font-display: swap;
 }
@@ -50,8 +55,25 @@
 }
 @font-face {
   font-family: 'Sofia Pro';
+  src: url('./fonts/SofiaPro-Light.otf') format('opentype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Sofia Pro';
   src: url('./fonts/SofiaPro-Regular.otf') format('opentype');
   font-weight: 400; font-style: normal; font-display: swap;
+}
+
+/* TeX Gyre Adventor — the wordmark face from the identity kit. */
+@font-face {
+  font-family: 'TeX Gyre Adventor';
+  src: url('./fonts/TeXGyreAdventor-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'TeX Gyre Adventor';
+  src: url('./fonts/TeXGyreAdventor-Bold.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'Sofia Pro';
@@ -118,6 +140,24 @@
   --danger-800: color-mix(in oklch, var(--danger) 55%, var(--ink));
   --danger-900: color-mix(in oklch, var(--danger) 38%, var(--ink));
 
+  /* — color · photographic overlay tints —
+     From the identity kit: color exists only as a tint laid over
+     photography, never as a flat UI fill. */
+  --tint-blue:    #A8BAC4;
+  --tint-dark:    #2F3338;
+  --tint-clear:   #BAB6AE;
+  --tint-magenta: #E91E63;
+  --tint-wine:    #6B1E3A;
+  --tint-mist:    #C4C9CE;
+
+  /* — color · photo scrim + type on photography —
+     Fixed regardless of theme: photography is always deep, and the
+     type sitting on it is always near-white. */
+  --scrim:         oklch(15% 0.005 260);
+  --on-photo:      oklch(98% 0 0 / 0.96);
+  --on-photo-soft: oklch(98% 0 0 / 0.62);
+  --on-photo-faint: oklch(98% 0 0 / 0.32);
+
   --success-100: color-mix(in oklch, var(--success) 10%, var(--paper));
   --success-200: color-mix(in oklch, var(--success) 22%, var(--paper));
   --success-300: color-mix(in oklch, var(--success) 40%, var(--paper));
@@ -132,6 +172,7 @@
   --font-sans:    'Sofia Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-display: 'Novecento Sans Wide', 'Futura PT', Futura, 'Helvetica Neue', sans-serif;
   --font-sub:     'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mark:    'TeX Gyre Adventor', 'Futura PT', Futura, sans-serif;
   --font-mono:    ui-monospace, 'JetBrains Mono', 'SF Mono', monospace;
 
   --text-xs: 0.6875rem; /* 11px — caption, eyebrow */
@@ -153,18 +194,24 @@
   --space-lg: 3rem;    /* 48px */
   --space-xl: 6rem;    /* 96px */
 
-  /* — shape · squared. always. — */
+  /* — shape · squared. always. borderless by default. —
+     Surfaces separate through whitespace and washes; when a line is
+     unavoidable it is a hairline — barely-there ink, not a box. */
   --radius: 0;
+  --hairline:      color-mix(in oklch, var(--ink) 14%, transparent);
+  --border-hair:   1px solid var(--hairline);
   --border:        1px solid var(--line);
   --border-strong: 1px solid var(--ink);
 
   /* — motion — */
-  --snap: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --snap:      200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --immersive: cubic-bezier(0.16, 1, 0.3, 1); /* signature reveal curve */
 
   /* — layout — */
   --measure:   68ch;
   --page-max:  80rem;
   --panel-w:   20rem;
+  --header-h:  3.5rem;
 }
 
 [data-theme='dark'] {
