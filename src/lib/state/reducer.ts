@@ -5,6 +5,10 @@ export function reducer (state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'theme/set':
       return { ...state, theme: action.theme }
+    case 'palette/set':
+      return { ...state, palette: { ...state.palette, [action.color]: action.channels }}
+    case 'palette/reset':
+      return { ...state, palette: {}}
     case 'panel/toggle':
       return { ...state, panelOpen: !state.panelOpen }
     case 'panel/set':

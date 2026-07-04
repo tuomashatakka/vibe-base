@@ -1,111 +1,155 @@
 import Link from 'next/link'
-import { Chat } from '@/components/composites'
-import { Card } from '@/components/composites/Card'
-import { Disclosure, Heading } from '@/components/primitives'
+import { Card, Carousel, Swatches } from '@/components/composites'
+import { Badge, Button, Heading, Progress, Switch } from '@/components/primitives'
 
+
+const NEUTRAL_RAMP = [ 'paper', 'wash', 'line', 'ink-faint', 'ink-soft', 'ink' ]
+
+const SLIDES = [
+  {
+    id: 'monochrome',
+    content:
+  <>
+    <Heading level={ 6 }>01 · Color</Heading>
+    <Heading level={ 2 }>Monochrome, by design</Heading>
+
+    <p>
+      True greys only. Color never arrives as a flat fill — it lives in
+      photography, or in your hands via the theme customizer.
+    </p>
+
+    <Swatches label='Neutral ramp' tokens={ NEUTRAL_RAMP } />
+  </>,
+  },
+  {
+    id: 'typography',
+    content:
+  <>
+    <Heading level={ 6 }>02 · Typography</Heading>
+    <Heading level={ 2 }>Wide caps, light body</Heading>
+
+    <p>
+      Novecento Sans Wide carries the display voice — uppercase, tracked
+      wide, never bolded for emphasis. Sofia Pro sets the body at a light
+      300, and Montserrat covers subheadings.
+    </p>
+
+    <p>
+      <Link href='/design-system#typography'>See the full specimen →</Link>
+    </p>
+  </>,
+  },
+  {
+    id: 'components',
+    content:
+  <>
+    <Heading level={ 6 }>03 · Components</Heading>
+    <Heading level={ 2 }>Semantic to the bone</Heading>
+
+    <p>
+      Native elements, squared corners, hairline borders. Every control
+      below is real — try them.
+    </p>
+
+    <div data-layout='cluster'>
+      <Button variant='primary'>Primary</Button>
+      <Button>Default</Button>
+      <Badge variant='accent'>Badge</Badge>
+      <Switch label='Switch' />
+    </div>
+
+    <Progress label='Demo progress' value={ 64 } />
+  </>,
+  },
+  {
+    id: 'tokens',
+    content:
+  <>
+    <Heading level={ 6 }>04 · Tokens</Heading>
+    <Heading level={ 2 }>One file, whole theme</Heading>
+
+    <p>
+      Every visual decision resolves to a custom property in
+      {' '}
+      <code>src/styles/tokens.css</code>
+      {' '}
+      — colors as adjustable oklch channels, one type scale, one spacing
+      rhythm. Slide the channels on the design system page and watch the
+      whole site follow.
+    </p>
+
+    <p>
+      <Link href='/design-system#color'>Customize the palette →</Link>
+    </p>
+  </>,
+  },
+]
 
 export default function HomePage () {
   return <div data-layout='stack'>
-    <section>
-      <Heading level={ 1 }>Start here, delete freely.</Heading>
+    <section data-hero>
+      <Heading level={ 6 }>Design system · Portfolio</Heading>
+      <Heading level={ 1 }>Hummingbird</Heading>
 
       <p>
-        This scaffold is a starting shape, not a framework. Semantic HTML styled
-        directly, one token file for the whole theme, a typed reducer for global
-        state, and an AI chat endpoint already streaming. Everything else is yours.
+        A monochrome design system reconstructed from the studio&apos;s 2015
+        identity guide — semantic HTML, native elements, zero utility classes.
+      </p>
+
+      <p>
+        <Link href='/design-system'>Explore the full design system →</Link>
       </p>
     </section>
 
-    <hr />
+    <Carousel label='Design system highlights' slides={ SLIDES } />
 
     <section>
-      <Heading level={ 2 }>What&apos;s wired</Heading>
+      <Heading level={ 2 }>Principles</Heading>
 
       <div data-layout='cluster'>
-        <Card title='Design system' footer={ <Link href='/style-guide'>Open style guide</Link> }>
+        <Card title='Squared. Always.'>
           <p>
-            Tokens in
-            {' '}
-            <code>src/styles/tokens.css</code>
-            , element defaults
-            in
-            {' '}
-            <code>base.css</code>
-            , variants in
-            {' '}
-            <code>components.css</code>
-            .
-            No Tailwind, no Radix, no utility classes.
+            Radius is a token set to zero. Hairline borders and whitespace do
+            the separating; nothing floats on a shadow.
           </p>
         </Card>
 
-        <Card title='Global state'>
+        <Card title='The markup is the API'>
           <p>
-            Reducer + actions pattern in
-            {' '}
-            <code>src/lib/state</code>
-            . Try the
-            <strong> theme</strong>
-            {' '}
-            and
-            <strong>panel</strong>
-            {' '}
-            buttons in the
-            header — the panel is a parallel route slot.
-          </p>
-        </Card>
-
-        <Card title='AI SDK'>
-          <p>
-            <code>src/app/api/chat/route.ts</code>
-            {' '}
-            streams Claude via the
-            Vercel AI SDK. Set
-            <code>ANTHROPIC_API_KEY</code>
-            {' '}
-            in
-            <code> .env.local</code>
-            {' '}
-            and it just works.
-          </p>
-        </Card>
-      </div>
-    </section>
-
-    <section>
-      <Heading level={ 2 }>Chat</Heading>
-      <Chat />
-    </section>
-
-    <section>
-      <Heading level={ 2 }>Native, no JavaScript</Heading>
-
-      <div data-layout='stack'>
-        <Disclosure open name='faq' summary='Why semantic selectors?'>
-          <p>
-            Because
-            {' '}
             <code>button.primary</code>
             {' '}
-            tells you what it is and where it
-            lives. The markup is the API; CSS reads like documentation.
+            tells you what it is and where it lives. Selectors mirror semantic
+            markup — no utility classes, no wrappers.
           </p>
-        </Disclosure>
+        </Card>
 
-        <Disclosure name='faq' summary='Why native elements?'>
+        <Card title='Native first'>
           <p>
-            <code>&lt;details&gt;</code>
-            ,
             <code>&lt;dialog&gt;</code>
-            , and friends ship
-            accessibility, focus management, and keyboard support for free. These two
-            disclosures form an accordion via the
-            <code>name</code>
+            ,
             {' '}
-            attribute — zero JS.
+            <code>&lt;details&gt;</code>
+            , scroll-snap sliders, and
+            {' '}
+            <code>:user-invalid</code>
+            {' '}
+            ship accessibility for free. JavaScript only assists.
           </p>
-        </Disclosure>
+        </Card>
       </div>
+    </section>
+
+    <section>
+      <Heading level={ 2 }>In the box</Heading>
+
+      <p>
+        Thirteen primitives, ten composites, three layout landmarks, a typed
+        reducer for global state, and a streaming AI chat endpoint — every one
+        of them documented, with live examples, on the
+        {' '}
+        <Link href='/design-system'>design system page</Link>
+        .
+      </p>
     </section>
   </div>
 }

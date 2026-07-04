@@ -61,26 +61,72 @@
 
 :root {
   /* — color · neutral ramp (true greys, brightness 19% / 28%) — */
-  --ink:        #303030;
-  --ink-soft:   #474747;
-  --ink-faint:  #757575;
-  --line:       #DEDCD7;
-  --wash:       #F5F4F2;
-  --paper:      #FFFFFF;
+  --ink:        oklch(31% 0 0);      /* ≈ #303030 */
+  --ink-soft:   oklch(40% 0 0);      /* ≈ #474747 */
+  --ink-faint:  oklch(56% 0 0);      /* ≈ #757575 */
+  --line:       oklch(90% 0.006 85); /* ≈ #DEDCD7 */
+  --wash:       oklch(97% 0.004 85); /* ≈ #F5F4F2 */
+  --paper:      oklch(100% 0 0);     /* #FFFFFF  */
 
-  /* — color · accent —
-     The brand has no flat-fill accent hue; "accent" is ink itself.
+  /* — color · customizable channels —
+     Every brand color is an oklch lightness/chroma/hue triplet.
+     The theme customizer writes these three properties per color
+     (inline, on <html>) and the whole system — resolved colors,
+     hovers, washes, the 100–900 ramps below — follows. The brand
+     default is genuinely monochrome, so accent chroma is 0: the
+     accent IS ink until someone slides chroma up. */
+  --accent-l:  40%;  --accent-c:  0;     --accent-h:  85;
+  --danger-l:  40%;  --danger-c:  0.11;  --danger-h:  5;
+  --success-l: 50%;  --success-c: 0.05;  --success-h: 135;
+
+  --accent-strong-l: calc(var(--accent-l) - 9%);
+
+  /* — color · resolved brand colors —
      accent-wash steps one notch off wash so two neutral surfaces
-     (e.g. chat bubbles) stay tellable apart without introducing color. */
-  --accent:        var(--ink-soft);
-  --accent-strong: var(--ink);
-  --accent-wash:   #E8E7E4;
+     (e.g. chat bubbles) stay tellable apart without introducing color.
+     danger/success are not part of the brand book (a monochrome
+     identity has no error state); wine and a desaturated moss keep
+     the low-vibrancy feel. */
+  --accent:        oklch(var(--accent-l) var(--accent-c) var(--accent-h));
+  --accent-strong: oklch(var(--accent-strong-l) var(--accent-c) var(--accent-h));
+  --accent-wash:   color-mix(in oklch, var(--accent) 12%, var(--paper));
 
-  /* — color · semantic —
-     Not part of the brand book (a monochrome identity has no error
-     state); wine and a desaturated moss keep the low-vibrancy feel. */
-  --danger:  #6B1E3A;
-  --success: #55694A;
+  --danger:  oklch(var(--danger-l) var(--danger-c) var(--danger-h));
+  --success: oklch(var(--success-l) var(--success-c) var(--success-h));
+
+  /* — color · variant ramps —
+     Nine steps per brand color, 100 (near paper) → 900 (near ink).
+     500 is the color itself. Mixing toward --paper / --ink keeps the
+     ramps correct in both themes and under customization. */
+  --accent-100: color-mix(in oklch, var(--accent) 10%, var(--paper));
+  --accent-200: color-mix(in oklch, var(--accent) 22%, var(--paper));
+  --accent-300: color-mix(in oklch, var(--accent) 40%, var(--paper));
+  --accent-400: color-mix(in oklch, var(--accent) 65%, var(--paper));
+  --accent-500: var(--accent);
+  --accent-600: color-mix(in oklch, var(--accent) 88%, var(--ink));
+  --accent-700: color-mix(in oklch, var(--accent) 72%, var(--ink));
+  --accent-800: color-mix(in oklch, var(--accent) 55%, var(--ink));
+  --accent-900: color-mix(in oklch, var(--accent) 38%, var(--ink));
+
+  --danger-100: color-mix(in oklch, var(--danger) 10%, var(--paper));
+  --danger-200: color-mix(in oklch, var(--danger) 22%, var(--paper));
+  --danger-300: color-mix(in oklch, var(--danger) 40%, var(--paper));
+  --danger-400: color-mix(in oklch, var(--danger) 65%, var(--paper));
+  --danger-500: var(--danger);
+  --danger-600: color-mix(in oklch, var(--danger) 88%, var(--ink));
+  --danger-700: color-mix(in oklch, var(--danger) 72%, var(--ink));
+  --danger-800: color-mix(in oklch, var(--danger) 55%, var(--ink));
+  --danger-900: color-mix(in oklch, var(--danger) 38%, var(--ink));
+
+  --success-100: color-mix(in oklch, var(--success) 10%, var(--paper));
+  --success-200: color-mix(in oklch, var(--success) 22%, var(--paper));
+  --success-300: color-mix(in oklch, var(--success) 40%, var(--paper));
+  --success-400: color-mix(in oklch, var(--success) 65%, var(--paper));
+  --success-500: var(--success);
+  --success-600: color-mix(in oklch, var(--success) 88%, var(--ink));
+  --success-700: color-mix(in oklch, var(--success) 72%, var(--ink));
+  --success-800: color-mix(in oklch, var(--success) 55%, var(--ink));
+  --success-900: color-mix(in oklch, var(--success) 38%, var(--ink));
 
   /* — type — */
   --font-sans:    'Sofia Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -95,6 +141,7 @@
   --text-xl: 1.875rem;  /* 30px — h3 */
   --text-2x: 2.25rem;   /* 36px — h2 */
   --text-3x: 3.375rem;  /* 54px — h1 */
+  --text-4x: clamp(3.375rem, 8vw, 5.5rem); /* portfolio hero display */
 
   --leading-tight:  1.2;
   --leading-normal: 1.7;
@@ -121,35 +168,31 @@
 }
 
 [data-theme='dark'] {
-  --ink:        #F5F4F2;
-  --ink-soft:   #CFCFCF;
-  --ink-faint:  #9E9E9E;
-  --line:       #474747;
-  --wash:       #262626;
-  --paper:      #1A1A1A;
+  --ink:        oklch(97% 0.004 85); /* ≈ #F5F4F2 */
+  --ink-soft:   oklch(85% 0 0);      /* ≈ #CFCFCF */
+  --ink-faint:  oklch(70% 0 0);      /* ≈ #9E9E9E */
+  --line:       oklch(40% 0 0);      /* ≈ #474747 */
+  --wash:       oklch(27% 0 0);      /* ≈ #262626 */
+  --paper:      oklch(22% 0 0);      /* ≈ #1A1A1A */
 
-  --accent:        var(--ink-soft);
-  --accent-strong: var(--ink);
-  --accent-wash:   #333333;
-
-  --danger:  #8A2E4E;
-  --success: #6F8264;
+  --accent-l:        85%;
+  --accent-strong-l: calc(var(--accent-l) + 12%);
+  --danger-l:        48%; --danger-c: 0.12;
+  --success-l:       58%;
 }
 
 @media (prefers-color-scheme: dark) {
   [data-theme='system'] {
-    --ink:        #F5F4F2;
-    --ink-soft:   #CFCFCF;
-    --ink-faint:  #9E9E9E;
-    --line:       #474747;
-    --wash:       #262626;
-    --paper:      #1A1A1A;
+    --ink:        oklch(97% 0.004 85);
+    --ink-soft:   oklch(85% 0 0);
+    --ink-faint:  oklch(70% 0 0);
+    --line:       oklch(40% 0 0);
+    --wash:       oklch(27% 0 0);
+    --paper:      oklch(22% 0 0);
 
-    --accent:        var(--ink-soft);
-    --accent-strong: var(--ink);
-    --accent-wash:   #333333;
-
-    --danger:  #8A2E4E;
-    --success: #6F8264;
+    --accent-l:        85%;
+    --accent-strong-l: calc(var(--accent-l) + 12%);
+    --danger-l:        48%; --danger-c: 0.12;
+    --success-l:       58%;
   }
 }
