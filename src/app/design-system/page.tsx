@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
+import bgClear from '@/assets/bg-mountain-clear.jpg'
 import {
-  Alert, Breadcrumb, Card, Carousel, Chat, Swatches, Tabs, ThemeCustomizer,
+  Alert, Breadcrumb, Card, Carousel, Chat, Meta, Swatches, Tabs, ThemeCustomizer,
 } from '@/components/composites'
-import { Badge, Button, Disclosure, Heading, Progress } from '@/components/primitives'
+import { Badge, Button, Disclosure, Heading, Mark, Progress } from '@/components/primitives'
 import { DialogDemo, FormsDemo, SliderDemo } from './demos'
 import { Inventory } from './inventory'
 
@@ -18,8 +19,16 @@ const ramp = (family: string) =>
   [ 100, 200, 300, 400, 500, 600, 700, 800, 900 ].map(step => `${family}-${step}`)
 
 const CAROUSEL_DEMO = [
-  { id: 'one', content: <p>Slide one — the track is a native scroll-snap list.</p> },
-  { id: 'two', content: <p>Slide two — swipe, scroll, or use the buttons.</p> },
+  {
+    id:    'photo',
+    image: bgClear,
+    content:
+  <>
+    <Heading level={ 6 }>Photography</Heading>
+    <p>A slide with an image renders it full-bleed under the identity&apos;s diagonal scrim.</p>
+  </>,
+  },
+  { id: 'two', content: <p>Slide two — the track is a native scroll-snap list; swipe, scroll, or use the controls.</p> },
   { id: 'three', content: <p>Slide three — keyboard scrolling works out of the box.</p> },
 ]
 
@@ -322,6 +331,20 @@ export default function DesignSystemPage () {
         {' '}
         with an optional anchor id — every heading on this page uses it.
       </p>
+
+      <Heading level={ 3 }>Mark</Heading>
+
+      <p>
+        The Hummingbird mark from the identity kit, inlined so it inherits
+        {' '}
+        <code>currentColor</code>
+        {' '}
+        — it sits in the header, the hero, and anywhere ink goes.
+      </p>
+
+      <span data-brand-mark=''>
+        <Mark label='Hummingbird mark' />
+      </span>
     </section>
 
     <section>
@@ -388,10 +411,27 @@ export default function DesignSystemPage () {
 
       <p>
         The portfolio slider from the front page: a scroll-snap list with
-        assisting buttons and a slide counter.
+        chevron controls and line dots. Give a slide an
+        {' '}
+        <code>image</code>
+        {' '}
+        and it renders full-bleed under the identity&apos;s diagonal scrim,
+        with type switching to near-white.
       </p>
 
       <Carousel label='Carousel demo' slides={ CAROUSEL_DEMO } />
+      <Heading level={ 3 }>Meta</Heading>
+
+      <p>
+        Label / value pairs on hairline rules — the identity&apos;s fact list.
+      </p>
+
+      <Meta
+        items={ [
+          { label: 'Location', value: 'Helsinki, Finland' },
+          { label: 'Focus', value: 'Design systems · Creative coding' },
+        ] } />
+
       <Heading level={ 3 }>Swatches &amp; ThemeCustomizer</Heading>
 
       <p>

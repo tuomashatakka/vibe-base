@@ -13,10 +13,11 @@ bun dev
 ```
 
 Open `http://localhost:3000` — the home page is the Hummingbird design system
-portfolio (scroll-snap slider included). `/design-system` documents the whole
-system: every token ramp as swatches, live palette customization via oklch
-sliders, and every component with working examples. The written spec lives in
-`docs/hummingbird-design-system.md`.
+portfolio: full-height snap-scroll screens and a full-bleed photo slider, in
+the identity's borderless, monochrome manner. `/design-system` documents the
+whole system: every token ramp as swatches, live palette customization via
+oklch sliders, and every component with working examples. The written spec
+lives in `docs/hummingbird-design-system.md`.
 
 ## What's inside
 
